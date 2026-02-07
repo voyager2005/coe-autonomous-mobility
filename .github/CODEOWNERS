@@ -1,1 +1,13 @@
+# Format: [Folder Path] [GitHub Username]
 
+# Global owners (Here should be the github username of anyone who wants to be notified when any chagnes are made to the repo)
+* @voyager2005
+
+# Research Specific Leads (Here should be the github username(s) of the team lead(s))
+# EXAMPLE: 
+# /research/lidar/      @student_lidar_expert
+# /research/vision/     @student_vision_lead
+
+# Project Specific Leads (Here should be the github username(s) of the project lead(s) for each project
+# EXAMPLE: 
+# /projects/navigation/ @path_planning_pro
