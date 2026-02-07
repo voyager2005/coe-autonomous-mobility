@@ -16,8 +16,8 @@ Welcome to the central repository for the **Autonomous Mobility CoE**. This repo
 ## Active Project Registry
 
 | Category | Project Name | Lead(s) | Status | Last Updated |
-| :--- | :--- | :--- | :--- | :--- | <!-- DO NOT REMOVE THIS LINE OF CODE, IT WILL LIKE BREAK THE TABLE, ADD YOUR DOCUMETNATION BELOW THIS -->
-| Project | Homography | @voyager2005 | 🟡 In Progress | 2026-02-08 |
+| :--- | :--- | :--- | :--- | :--- |
+| Project | [Homography](./projects/homography | @voyager2005 | 🟡 In Progress | 2026-02-08 |
 
 ---
 
