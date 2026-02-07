@@ -1,1 +1,39 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.env
 
+# --- C++ / ROS / ROS2 ---
+build/
+install/
+log/
+*.pcd
+*.pcap
+.catkin_workspace
+.vscode/
+
+# --- Large Data & ML Models (Crucial for Mobility) ---
+# Don't track massive log files or heavy weights
+*.bag
+*.mcap
+*.csv
+*.jsonl
+*.pth
+*.h5
+*.onnx
+*.pb
+*.weights
+dataset/
+data/
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints
