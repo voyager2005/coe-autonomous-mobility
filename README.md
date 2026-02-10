@@ -18,7 +18,11 @@ Welcome to the central repository for the **Autonomous Mobility CoE**. This repo
 | Category | Project Name | Lead(s) | Status | Last Updated |
 | :--- | :--- | :--- | :--- | :--- |
 | Project | [Homography](./projects/homography) | @voyager2005 | 🟡 In Progress | 2026-02-08 |
-| Research | [Dynamic Occlusion for Reasoning](./projects/dymanic-occlusion-for-reasoning) | @datascience247 @skylark | 🟡 In Progress | |
+| Research | [Dynamic Occlusion for Reasoning](./research/dymanic-occlusion-for-reasoning) | @datascience247 @skylark | 🟡 In Progress | 2026-02-10 |
+| Research | [Few-Shot Pattern-Recognition](./few-shot-pattern-recognition) | | 🟡 In Progress | 2026-02-10|
+| Project | [Denoising and Image Preprocessing](./denoising-and-image-preprocessing) | | 🟡 In Progress | 2026-02-10 |
+| Research | [Failure Mode and Effect Analysis](failure-mode-and-effect-analysis) | | 🟡 In Progress | 2026-02-10 |
+
 
 ---
 
