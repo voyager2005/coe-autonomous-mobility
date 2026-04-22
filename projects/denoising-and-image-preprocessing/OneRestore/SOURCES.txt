@@ -1,0 +1,3 @@
+https://github.com/shashwat-ghatiwala/Recreate-Einops-Rearrange
+https://github.com/gy65896/OneRestore
+https://openaccess.thecvf.com/content_CVPR_2019/papers/Brooks_Learning_to_Synthesize_Motion_Blur_CVPR_2019_paper.pdf
