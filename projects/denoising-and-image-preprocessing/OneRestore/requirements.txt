@@ -12,4 +12,8 @@ h5py>=3.0.0
 matplotlib>=3.5.0
 huggingface_hub>=0.20.0
 gradio>=4.0.0
+<<<<<<< Updated upstream
+=======
+gradio-imageslider>=1.0.0
+>>>>>>> Stashed changes
 pytorch_msssim>=0.1.0

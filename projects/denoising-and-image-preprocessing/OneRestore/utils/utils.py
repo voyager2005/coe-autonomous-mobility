@@ -7,7 +7,11 @@ from skimage.metrics import mean_squared_error as compare_mse
 from skimage.metrics import structural_similarity as compare_ssim
 import pandas as pd
 
+<<<<<<< Updated upstream
+from model.Restorer import Restorer
+=======
 from model.OneRestore import OneRestore
+>>>>>>> Stashed changes
 from model.Embedder import Embedder
 
 def load_embedder_ckpt(device, freeze_model=False, ckpt_name=None,
@@ -45,12 +49,21 @@ def load_restore_ckpt(device, freeze_model=False, ckpt_name=None):
         else:
             # PATCHED HERE
             model_info = torch.load(ckpt_name, map_location=torch.device('cpu'), weights_only=False) 
+<<<<<<< Updated upstream
+        print('==> loading existing Restorer model:', ckpt_name)
+        model = Restorer().to("cuda" if torch.cuda.is_available() else "cpu")
+        model.load_state_dict(model_info)
+    else:
+        print('==> Initialize Restorer model.')
+        model = Restorer().to("cuda" if torch.cuda.is_available() else "cpu")
+=======
         print('==> loading existing OneRestore model:', ckpt_name)
         model = OneRestore().to("cuda" if torch.cuda.is_available() else "cpu")
         model.load_state_dict(model_info)
     else:
         print('==> Initialize OneRestore model.')
         model = OneRestore().to("cuda" if torch.cuda.is_available() else "cpu")
+>>>>>>> Stashed changes
         model = torch.nn.DataParallel(model).to("cuda" if torch.cuda.is_available() else "cpu")
 
     if freeze_model:
@@ -67,8 +80,13 @@ def load_restore_ckpt_with_optim(device, local_rank=None, freeze_model=False, ck
         else:
             model_info = torch.load(ckpt_name, map_location=torch.device('cpu'))
 
+<<<<<<< Updated upstream
+        print('==> loading existing Restorer model:', ckpt_name)
+        model = Restorer().to("cuda" if torch.cuda.is_available() else "cpu")
+=======
         print('==> loading existing OneRestore model:', ckpt_name)
         model = OneRestore().to("cuda" if torch.cuda.is_available() else "cpu")
+>>>>>>> Stashed changes
         optimizer = torch.optim.Adam(model.parameters(), lr=lr) if lr != None else None
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank], output_device=local_rank, find_unused_parameters=True) if local_rank != None else model
 
@@ -84,8 +102,13 @@ def load_restore_ckpt_with_optim(device, local_rank=None, freeze_model=False, ck
         optimizer.load_state_dict(model_info['optimizer'])
         cur_epoch = model_info['epoch']
     else:
+<<<<<<< Updated upstream
+        print('==> Initialize Restorer model.')
+        model = Restorer().to("cuda" if torch.cuda.is_available() else "cpu")
+=======
         print('==> Initialize OneRestore model.')
         model = OneRestore().to("cuda" if torch.cuda.is_available() else "cpu")
+>>>>>>> Stashed changes
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank], output_device=local_rank, find_unused_parameters=True) if local_rank != None else torch.nn.DataParallel(model)
         cur_epoch = 0

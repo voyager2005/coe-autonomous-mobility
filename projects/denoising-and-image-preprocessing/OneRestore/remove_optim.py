@@ -1,9 +1,23 @@
 import torch, argparse
+<<<<<<< Updated upstream
+from model.Restorer import Restorer
+=======
 from model.OneRestore import OneRestore
+>>>>>>> Stashed changes
 from model.Embedder import Embedder
 
 parser = argparse.ArgumentParser()
 
+<<<<<<< Updated upstream
+parser.add_argument("--type", type=str, default = 'Restorer')
+    parser.add_argument("--input-file", type=str, default = './ckpts/restorer_model.tar')
+    parser.add_argument("--output-file", type=str, default = './ckpts/restorer_model.tar')
+
+args = parser.parse_args()
+
+if args.type == 'Restorer':
+    restorer = Restorer().to("cuda" if torch.cuda.is_available() else "cpu")
+=======
 parser.add_argument("--type", type=str, default = 'OneRestore')
 parser.add_argument("--input-file", type=str, default = './ckpts/onerestore_cdd-11.tar')
 parser.add_argument("--output-file", type=str, default = './ckpts/onerestore_cdd-11.tar')
@@ -12,6 +26,7 @@ args = parser.parse_args()
 
 if args.type == 'OneRestore':
     restorer = OneRestore().to("cuda" if torch.cuda.is_available() else "cpu")
+>>>>>>> Stashed changes
     restorer_info = torch.load(args.input_file, map_location='cuda:0')
     weights_dict = {}
     for k, v in restorer_info['state_dict'].items():
