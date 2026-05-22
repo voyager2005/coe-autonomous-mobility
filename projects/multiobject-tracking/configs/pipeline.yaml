@@ -1,0 +1,56 @@
+# =============================================================
+# MAVERIC — Master Pipeline Config
+# =============================================================
+
+project_root: ~/MAVERIC/MOT
+
+data:
+  kitti_root:       ~/MAVERIC/MOT/data/kitti
+  split:            training
+  sequences:        null          # null = all sequences
+  classes:          [Car, Pedestrian, Cyclist]
+  img_size:         [1242, 375]
+
+detection:
+  camera:
+    model:          yolo11m
+    weights:        ~/MAVERIC/MOT/models/yolo11/yolo11m.pt
+    conf_thresh:    0.25
+    iou_thresh:     0.45
+    device:         cuda:0
+    use_tensorrt:   true
+    precision:      int8
+  lidar:
+    model:        pointpillars
+    weights:      ~/MAVERIC/MOT/models/pointpillars/pointpillars_kitti.pth
+    pcdet_config: OpenPCDet/tools/cfgs/kitti_models/pointpillar.yaml
+    score_thresh: 0.3
+    voxel_size:   [0.05, 0.05, 0.1]
+    point_cloud_range: [0, -39.68, -3, 69.12, 39.68, 1]
+    device:       cuda:0
+
+reid:
+  model:            osnet_x0_25
+  weights:          ~/MAVERIC/MOT/models/osnet_reid/osnet_x0_25.pth
+  embed_dim:        512
+  ema_alpha:        0.9            # embedding smoothing factor
+  device:           cuda:0
+
+tracking:
+  max_age:          30             # frames before a track is deleted
+  min_hits:         2              # frames before a track is confirmed
+  iou_weight:       0.5            # weight of IoU in cost matrix
+  reid_weight:      0.5            # weight of ReID cosine distance
+  iou_threshold:    0.3            # gate: discard matches above this IoU distance
+  reid_threshold:   0.4            # gate: discard matches above this cosine distance
+  high_conf_thresh: 0.6            # ByteTrack: first-pass match threshold
+  low_conf_thresh:  0.1            # ByteTrack: second-pass match threshold
+
+output:
+  tracks_dir:       ~/MAVERIC/MOT/outputs/tracks
+  vis_dir:          ~/MAVERIC/MOT/outputs/visualisations
+  eval_dir:         ~/MAVERIC/MOT/outputs/evaluation
+  save_video:       true
+  show_lidar_overlay: true
+  video_fps:        10
+  show_lidar_overlay: true

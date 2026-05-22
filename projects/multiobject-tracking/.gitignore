@@ -1,0 +1,36 @@
+# Data (too large for git)
+data/
+
+# Model weights
+models/
+checkpoints/
+
+# Outputs
+outputs/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.example
+maveric/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# TensorRT engines (binary, machine-specific)
+outputs/tensorrt/
+
+# OS
+.DS_Store
+Thumbs.db
+
+#.vscode
+.vscode/
+
+#Miscellaneous
+pyrightconfig.json
