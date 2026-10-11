@@ -1,0 +1,50 @@
+# =============================================================================
+# KITTI Tracking Dataset — YOLO11 Config
+# ~/MAVERIC/MOT/configs/kitti_tracking.yaml
+#
+# Used by:
+#   - yolo_detector.py  (class names + dataset path)
+#   - YOLO11m TensorRT export (model.export(data="kitti_tracking.yaml"))
+#   - Fine-tuning YOLO11m on KITTI (when Phase 2 detection split is downloaded)
+# =============================================================================
+
+path: ~/MAVERIC/MOT/data/kitti          # dataset root
+
+train: tracking/training            # training sequences (relative to path)
+val:   tracking/testing             # validation sequences (relative to path)
+
+# -----------------------------------------------------------------------------
+# Class definitions
+# KITTI tracking split has 9 object classes.
+# DontCare is excluded — it is not a real object class.
+# -----------------------------------------------------------------------------
+nc: 9                               # number of classes
+
+names:
+  0: Car
+  1: Van
+  2: Truck
+  3: Pedestrian
+  4: Person_sitting
+  5: Cyclist
+  6: Tram
+  7: Misc
+  8: DontCare
+
+# -----------------------------------------------------------------------------
+# MOT Pipeline class filter
+# Only these classes are passed to the tracker.
+# Adjust as needed in configs/pipeline.yaml.
+# -----------------------------------------------------------------------------
+tracking_classes:
+  - Car
+  - Van
+  - Truck
+  - Pedestrian
+  - Cyclist
+
+# -----------------------------------------------------------------------------
+# Detection thresholds (defaults — overridden by configs/pipeline.yaml)
+# -----------------------------------------------------------------------------
+conf_threshold: 0.25
+iou_threshold:  0.45

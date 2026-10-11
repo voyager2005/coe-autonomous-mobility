@@ -1,0 +1,168 @@
+# =============================================================================
+# MAVERIC — Multi-Object Tracking Pipeline Requirements
+# ~/MAVERIC · Ubuntu · RTX 4050 · CUDA 13 · Python 3.12 · venv
+# Detector: YOLO11m (Ultralytics) — no flash-attn, no source-compiled CUDA extensions
+# =============================================================================
+# INSTALL ORDER MATTERS — follow the setup sequence at the bottom.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# 1. PYTORCH (cu128 wheels — stable, well-tested on CUDA 13 driver)
+#    Installed manually via --index-url. See setup sequence below.
+#    DO NOT run bare `pip install torch` — you will get a CPU-only build.
+# -----------------------------------------------------------------------------
+# torch>=2.6.0          (installed via --index-url, see below)
+# torchvision>=0.21.0   (installed via --index-url, see below)
+# torchaudio>=2.6.0     (installed via --index-url, see below)
+
+
+# -----------------------------------------------------------------------------
+# 2. TENSORRT (CUDA 12 wheels run fine on CUDA 13 driver)
+#    For INT8 export of YOLO11m and PointPillars.
+# -----------------------------------------------------------------------------
+tensorrt>=10.9.0
+torch-tensorrt>=2.6.0
+
+
+# -----------------------------------------------------------------------------
+# 3. YOLO11 (via Ultralytics)
+#    One-line install — no flash-attn, no nvcc, no source build required.
+#    Weights (yolo11m.pt) are auto-downloaded on first use.
+# -----------------------------------------------------------------------------
+ultralytics>=8.3.0
+
+
+# -----------------------------------------------------------------------------
+# 4. CORE NUMERICAL / VISION
+# -----------------------------------------------------------------------------
+numpy>=1.26.0
+opencv-python>=4.11.0
+Pillow>=10.4.0
+scipy>=1.13.0
+
+
+# -----------------------------------------------------------------------------
+# 5. 3D DETECTION — POINTPILLARS (via OpenPCDet)
+#    Must be installed from source — see setup sequence below.
+#    git clone https://github.com/open-mmlab/OpenPCDet
+#    pip install -r requirements.txt && python setup.py develop
+# -----------------------------------------------------------------------------
+open3d>=0.18.0               # Point cloud I/O and visualisation
+SharedArray>=3.2.4           # OpenPCDet dependency
+llvmlite>=0.43.0
+numba>=0.60.0                # JIT compilation for voxelisation
+
+
+# -----------------------------------------------------------------------------
+# 6. REID — OSNET (via torchreid)
+#    Must be installed from source — see setup sequence below.
+#    pip install git+https://github.com/KaiyangZhou/deep-person-reid.git
+# -----------------------------------------------------------------------------
+gdown>=5.2.0                 # Downloading pretrained ReID weights from GDrive
+
+
+# -----------------------------------------------------------------------------
+# 7. TRACKING CORE — KALMAN FILTER + HUNGARIAN ALGORITHM
+#    filterpy      → replaced by pykalman (Python 3.12 compatible)
+#    lap           → replaced by lapx (drop-in, same `import lap` interface)
+#    cython-bbox   → replaced by torchvision.ops.box_iou (GPU-accelerated)
+# -----------------------------------------------------------------------------
+pykalman>=0.9.7
+lapx>=0.5.10
+# torchvision.ops.box_iou used directly — no extra package needed
+
+
+# -----------------------------------------------------------------------------
+# 8. BYTETRACK
+#    Must be installed from source — see setup sequence below.
+#    pip install git+https://github.com/ifzhang/ByteTrack.git
+# -----------------------------------------------------------------------------
+faiss-gpu-cu12>=1.13.0             # Fast similarity search for ReID gallery lookup
+
+
+# -----------------------------------------------------------------------------
+# 9. ONNX EXPORT / INFERENCE
+# -----------------------------------------------------------------------------
+onnx>=1.16.0
+onnxruntime-gpu>=1.22.0
+
+
+# -----------------------------------------------------------------------------
+# 10. DATA I/O + SERIALISATION
+# -----------------------------------------------------------------------------
+pyyaml>=6.0.1
+ujson>=5.10.0
+h5py>=3.11.0
+pandas>=2.2.0
+
+
+# -----------------------------------------------------------------------------
+# 11. VISUALISATION + DISPLAY
+# -----------------------------------------------------------------------------
+matplotlib>=3.9.0
+PyQt5>=5.15.11
+seaborn>=0.13.2
+
+
+# -----------------------------------------------------------------------------
+# 12. EVALUATION (MOT METRICS)
+# -----------------------------------------------------------------------------
+motmetrics>=1.4.0
+trackeval>=0.1.0
+
+
+# -----------------------------------------------------------------------------
+# 13. UTILITIES
+# -----------------------------------------------------------------------------
+tqdm>=4.66.0
+loguru>=0.7.2
+rich>=13.7.0
+python-dotenv>=1.0.1
+
+
+# =============================================================================
+# FULL SETUP SEQUENCE
+# ~/MAVERIC · Ubuntu native · Python 3.12 · venv (no conda)
+# Run these commands in order, top to bottom.
+# =============================================================================
+
+#   # --- 0. Create & activate virtual environment ---
+#   cd ~/MAVERIC
+#   python3.12 -m venv maveric
+#   source ~/MAVERIC/maveric/bin/activate
+
+#   # --- 1. Upgrade pip first ---
+#   pip install --upgrade pip setuptools wheel packaging
+
+#   # --- 2. PyTorch (cu128 — stable on CUDA 13 driver) ---
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+#   # --- 3. Verify GPU is visible before continuing ---
+#   python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+#   # Expected: 2.6.x+cu128  True
+
+#   # --- 4. YOLO11 (single line, no source build needed) ---
+#   pip install ultralytics
+
+#   # --- 5. Verify YOLO11 ---
+#   yolo checks
+
+#   # --- 6. OpenPCDet / PointPillars (from source) ---
+#   cd ~/MAVERIC
+#   git clone https://github.com/open-mmlab/OpenPCDet
+#   cd OpenPCDet
+#   pip install -r requirements.txt
+#   python setup.py develop
+#   cd ~/MAVERIC
+
+#   # --- 7. torchreid / OSNet ReID (from source) ---
+#   pip install git+https://github.com/KaiyangZhou/deep-person-reid.git
+
+#   # --- 8. ByteTrack (from source) ---
+#   pip install git+https://github.com/ifzhang/ByteTrack.git
+
+#   # --- 9. Everything else ---
+#   pip install -r requirements.txt
+
+# =============================================================================
